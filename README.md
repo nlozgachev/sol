@@ -1,4 +1,4 @@
-# patience-cli-ts
+# sol
 
 A command-line, keyboard-centric solitaire game written in TypeScript.
 
@@ -16,7 +16,6 @@ A command-line, keyboard-centric solitaire game written in TypeScript.
                   2♦  ##  ##
                       K♥  ##
                           3♣
-
 ```
 
 Foundation rows are labeled `f1`, `f2`, `f3`, `f4`.
@@ -25,23 +24,25 @@ Tableau columns are labeled `t1`, `t2`, ..., `t7`.
 
 `[##]` indicates the stock, which can be drawn from.
 
-`{__}` indicates the waste, which is the last drawn card from the stock. Empty at the start of the game.
-
+`{__}` indicates the waste, which is the last drawn card from the stock. Empty
+at the start of the game.
 
 ### Controls
-Press `Ctrl+C` to exit.
-Press `Escape` to clear the command buffer.
+
+Press `Ctrl+C` to exit. Press `Escape` to clear the command buffer.
 
 Moving cards implements the following syntax:
 
 `[counter][from][to]`
 
 Where:
+
 - `counter` is the number of cards to move (default is 1)
 - `from` is the source row (tableau, foundation, waste)
 - `to` is the destination row (tableau, foundation)
 
 `from` and `to` can be:
+
 - `t1`, `t2`, ..., `t7` for tableau columns 1 to 7
 - `f1`, `f2`, ..., `f4` for moving `from` foundation
 - `f` for foundation (only for moving `to` a suitable foundation)
@@ -59,10 +60,10 @@ Where:
 
 `f1t2` -- move 1 card from foundation 1 to tableau 2
 
-
 #### Drawing cards from the stock
 
-Drawing cards is continuous. When there are no more cards in the stock, the next drawing move will trigger stock restart.
+Drawing cards is continuous. When there are no more cards in the stock, the next
+drawing move will trigger stock restart.
 
 `1d` -- draw 1 card from stock to waste
 
@@ -70,14 +71,14 @@ Drawing cards is continuous. When there are no more cards in the stock, the next
 
 `3d` -- draw 3 cards from stock to waste
 
-
 #### Moving cards from the waste
 
 `wt1` -- move 1 card from waste to tableau 1
 
 #### Moving cards to a foundation
 
-Moving to foundation is handled automatically, meaning any suitable or free foundation slot will be occupied by the card you are moving.
+Moving to foundation is handled automatically, meaning any suitable or free
+foundation slot will be occupied by the card you are moving.
 
 `t5f` -- move 1 card from tableau 5 to a suitable or free foundation
 
@@ -89,12 +90,11 @@ Moving to foundation is handled automatically, meaning any suitable or free foun
 
 `:u` -- undo the last move
 
-
 ### Notes
 
-- The initial game state is generated randomly, so the game is different every time you start it.
+- The initial game state is generated randomly, so the game is different every
+  time you start it.
 - Win is registered when all tableau cards are flipped.
-
 
 ### Dev. Notes
 
@@ -103,7 +103,8 @@ Moving to foundation is handled automatically, meaning any suitable or free foun
 
 ### Other
 
-- The game is a work in progress, and some features may not be fully implemented.
+- The game is a work in progress, and some features may not be fully
+  implemented.
 - The initial code was an 8-hour exercise.
 
 ### TODO
@@ -113,5 +114,3 @@ Moving to foundation is handled automatically, meaning any suitable or free foun
 - [ ] Add restart functionality.
 - [ ] Add "start new game" functionality.
 - [ ] Add more tests for edge cases.
-
-
