@@ -1,4 +1,4 @@
-import { GameCtx } from '../types/game.ts';
+import { GameCtx } from "../types/game.ts";
 
 export function undo(ctx: GameCtx): GameCtx {
   const prevGameState = ctx.archive.at(-2);

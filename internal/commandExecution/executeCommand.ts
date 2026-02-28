@@ -1,9 +1,9 @@
-import { draw } from '../../cmd/draw.ts';
-import { applyMove } from '../../cmd/move.ts';
-import { undo } from '../../cmd/undo.ts';
-import { CommandParsed } from '../../types/command.ts';
-import { GameCtx } from '../../types/game.ts';
-import { DRAW_CMD, MOVE_CMD, QUIT_CMD, UNDO_CMD } from '../constants.ts';
+import { draw } from "../../cmd/draw.ts";
+import { applyMove } from "../../cmd/move.ts";
+import { undo } from "../../cmd/undo.ts";
+import { CommandParsed } from "../../types/command.ts";
+import { GameCtx } from "../../types/game.ts";
+import { DRAW_CMD, MOVE_CMD, QUIT_CMD, UNDO_CMD } from "../constants.ts";
 
 type ExecuteCommandCtx = {
   command: CommandParsed;
@@ -18,7 +18,7 @@ export function executeCommand(ctx: ExecuteCommandCtx): GameCtx {
 
   switch (command.action) {
     case QUIT_CMD: {
-      console.log('Bye!');
+      console.log("Bye!");
       Deno.exit(0);
       break;
     }

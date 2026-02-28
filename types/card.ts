@@ -1,6 +1,6 @@
-import { ALL_RANKS, ALL_SUITS } from '../internal/constants.ts';
-import { GameState } from './game.ts';
-import { ValidMove } from './move.ts';
+import { ALL_RANKS, ALL_SUITS } from "../internal/constants.ts";
+import { GameState } from "./game.ts";
+import { ValidMove } from "./move.ts";
 
 export type Suit = (typeof ALL_SUITS)[number];
 export type Rank = (typeof ALL_RANKS)[number];
@@ -19,7 +19,10 @@ export type WithTargetStates = {
   targetBefore: Card[];
 };
 
-export type MoveData = Pick<ValidMove, 'from' | 'to'> & WithMovingCards & WithTargetStates;
+export type MoveData =
+  & Pick<ValidMove, "from" | "to">
+  & WithMovingCards
+  & WithTargetStates;
 
 export type ApplyMoveCtx = {
   game: GameState;

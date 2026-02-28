@@ -1,4 +1,4 @@
-import { DRAW_CMD, MOVE_CMD, QUIT_CMD, UNDO_CMD } from '../internal/constants.ts';
+import { DRAW_CMD, MOVE_CMD, QUIT_CMD, UNDO_CMD } from "../internal/constants.ts";
 import {
   CardDestination,
   CardDestinationInjectedIndex,
@@ -6,7 +6,7 @@ import {
   ValidMove,
   WithCmdAction,
   WithCount,
-} from './move.ts';
+} from "./move.ts";
 
 export type CommandUndo = WithCmdAction<typeof UNDO_CMD>;
 export type CommandQuit = WithCmdAction<typeof QUIT_CMD>;
@@ -26,4 +26,8 @@ export type CommandMove = ValidMove & {
   action: typeof MOVE_CMD;
 };
 
-export type CommandParsed = CommandQuit | CommandUndo | CommandDraw | CommandMove;
+export type CommandParsed =
+  | CommandQuit
+  | CommandUndo
+  | CommandDraw
+  | CommandMove;

@@ -1,5 +1,5 @@
-import { Either } from './types.ts';
-import { ok } from './util.ts';
+import { Either } from "./types.ts";
+import { ok } from "./util.ts";
 
 /**
  * Applies a function to the value of an `Either` if it is a success. If the `Either` is a failure, it returns the `Either` as is.

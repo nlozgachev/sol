@@ -1,9 +1,9 @@
-import { assert } from '@std/assert';
-import { MoveData } from '../../../types/card.ts';
-import { FOUNDATION, TABLEAU } from '../../constants.ts';
-import { tryFromTableauToFoundation } from '../tryFromTableauToFoundation.ts';
+import { assert } from "@std/assert";
+import { MoveData } from "../../../types/card.ts";
+import { FOUNDATION, TABLEAU } from "../../constants.ts";
+import { tryFromTableauToFoundation } from "../tryFromTableauToFoundation.ts";
 
-Deno.test('tryFromTableauToFoundation | valid starting move', () => {
+Deno.test("tryFromTableauToFoundation | valid starting move", () => {
   const ctx: MoveData = {
     from: {
       index: 0,
@@ -14,8 +14,8 @@ Deno.test('tryFromTableauToFoundation | valid starting move', () => {
       pile: FOUNDATION,
     },
     targetBefore: [],
-    targetAfter: [{ faceUp: true, rank: 'A', suit: '♥' }],
-    movingCards: [{ faceUp: true, rank: 'A', suit: '♥' }],
+    targetAfter: [{ faceUp: true, rank: "A", suit: "♥" }],
+    movingCards: [{ faceUp: true, rank: "A", suit: "♥" }],
   };
 
   const res = tryFromTableauToFoundation(ctx);
@@ -23,7 +23,7 @@ Deno.test('tryFromTableauToFoundation | valid starting move', () => {
   assert(res.ok);
 });
 
-Deno.test('tryFromTableauToFoundation | invalid starting move', () => {
+Deno.test("tryFromTableauToFoundation | invalid starting move", () => {
   const ctx: MoveData = {
     from: {
       index: 0,
@@ -34,8 +34,8 @@ Deno.test('tryFromTableauToFoundation | invalid starting move', () => {
       pile: FOUNDATION,
     },
     targetBefore: [],
-    targetAfter: [{ faceUp: true, rank: 'K', suit: '♥' }],
-    movingCards: [{ faceUp: true, rank: 'K', suit: '♥' }],
+    targetAfter: [{ faceUp: true, rank: "K", suit: "♥" }],
+    movingCards: [{ faceUp: true, rank: "K", suit: "♥" }],
   };
 
   const res = tryFromTableauToFoundation(ctx);
@@ -43,7 +43,7 @@ Deno.test('tryFromTableauToFoundation | invalid starting move', () => {
   assert(!res.ok);
 });
 
-Deno.test('tryFromTableauToFoundation | valid additional move', () => {
+Deno.test("tryFromTableauToFoundation | valid additional move", () => {
   const ctx: MoveData = {
     from: {
       index: 0,
@@ -53,12 +53,12 @@ Deno.test('tryFromTableauToFoundation | valid additional move', () => {
       index: 1,
       pile: FOUNDATION,
     },
-    targetBefore: [{ faceUp: true, rank: 'A', suit: '♥' }],
+    targetBefore: [{ faceUp: true, rank: "A", suit: "♥" }],
     targetAfter: [
-      { faceUp: true, rank: 'A', suit: '♥' },
-      { faceUp: true, rank: '2', suit: '♥' },
+      { faceUp: true, rank: "A", suit: "♥" },
+      { faceUp: true, rank: "2", suit: "♥" },
     ],
-    movingCards: [{ faceUp: true, rank: '2', suit: '♥' }],
+    movingCards: [{ faceUp: true, rank: "2", suit: "♥" }],
   };
 
   const res = tryFromTableauToFoundation(ctx);
@@ -66,7 +66,7 @@ Deno.test('tryFromTableauToFoundation | valid additional move', () => {
   assert(res.ok);
 });
 
-Deno.test('tryFromTableauToFoundation | invalid additional move by rank', () => {
+Deno.test("tryFromTableauToFoundation | invalid additional move by rank", () => {
   const ctx: MoveData = {
     from: {
       index: 0,
@@ -76,12 +76,12 @@ Deno.test('tryFromTableauToFoundation | invalid additional move by rank', () => 
       index: 1,
       pile: FOUNDATION,
     },
-    targetBefore: [{ faceUp: true, rank: 'A', suit: '♥' }],
+    targetBefore: [{ faceUp: true, rank: "A", suit: "♥" }],
     targetAfter: [
-      { faceUp: true, rank: 'A', suit: '♥' },
-      { faceUp: true, rank: '3', suit: '♥' },
+      { faceUp: true, rank: "A", suit: "♥" },
+      { faceUp: true, rank: "3", suit: "♥" },
     ],
-    movingCards: [{ faceUp: true, rank: '3', suit: '♥' }],
+    movingCards: [{ faceUp: true, rank: "3", suit: "♥" }],
   };
 
   const res = tryFromTableauToFoundation(ctx);
@@ -89,7 +89,7 @@ Deno.test('tryFromTableauToFoundation | invalid additional move by rank', () => 
   assert(!res.ok);
 });
 
-Deno.test('tryFromTableauToFoundation | invalid additional move by suit', () => {
+Deno.test("tryFromTableauToFoundation | invalid additional move by suit", () => {
   const ctx: MoveData = {
     from: {
       index: 0,
@@ -99,12 +99,12 @@ Deno.test('tryFromTableauToFoundation | invalid additional move by suit', () => 
       index: 1,
       pile: FOUNDATION,
     },
-    targetBefore: [{ faceUp: true, rank: 'A', suit: '♥' }],
+    targetBefore: [{ faceUp: true, rank: "A", suit: "♥" }],
     targetAfter: [
-      { faceUp: true, rank: 'A', suit: '♥' },
-      { faceUp: true, rank: '2', suit: '♠' },
+      { faceUp: true, rank: "A", suit: "♥" },
+      { faceUp: true, rank: "2", suit: "♠" },
     ],
-    movingCards: [{ faceUp: true, rank: '2', suit: '♠' }],
+    movingCards: [{ faceUp: true, rank: "2", suit: "♠" }],
   };
 
   const res = tryFromTableauToFoundation(ctx);
@@ -112,7 +112,7 @@ Deno.test('tryFromTableauToFoundation | invalid additional move by suit', () => 
   assert(!res.ok);
 });
 
-Deno.test('tryFromTableauToFoundation | disallow several moving cards', () => {
+Deno.test("tryFromTableauToFoundation | disallow several moving cards", () => {
   const ctx: MoveData = {
     from: {
       index: 0,
@@ -122,14 +122,14 @@ Deno.test('tryFromTableauToFoundation | disallow several moving cards', () => {
       index: 1,
       pile: FOUNDATION,
     },
-    targetBefore: [{ faceUp: true, rank: 'A', suit: '♥' }],
+    targetBefore: [{ faceUp: true, rank: "A", suit: "♥" }],
     targetAfter: [
-      { faceUp: true, rank: 'A', suit: '♥' },
-      { faceUp: true, rank: '2', suit: '♠' },
+      { faceUp: true, rank: "A", suit: "♥" },
+      { faceUp: true, rank: "2", suit: "♠" },
     ],
     movingCards: [
-      { faceUp: true, rank: '2', suit: '♠' },
-      { faceUp: true, rank: '3', suit: '♠' },
+      { faceUp: true, rank: "2", suit: "♠" },
+      { faceUp: true, rank: "3", suit: "♠" },
     ],
   };
 

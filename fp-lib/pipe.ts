@@ -5,14 +5,14 @@ export function pipe<A, B, C, D>(
   a: A,
   ab: (a: A) => B,
   bc: (b: B) => C,
-  cd: (c: C) => D
+  cd: (c: C) => D,
 ): D;
 export function pipe<A, B, C, D, E>(
   a: A,
   ab: (a: A) => B,
   bc: (b: B) => C,
   cd: (c: C) => D,
-  de: (d: D) => E
+  de: (d: D) => E,
 ): E;
 export function pipe<A, B, C, D, E, F>(
   a: A,
@@ -20,7 +20,7 @@ export function pipe<A, B, C, D, E, F>(
   bc: (b: B) => C,
   cd: (c: C) => D,
   de: (d: D) => E,
-  ef: (e: E) => F
+  ef: (e: E) => F,
 ): F;
 export function pipe<A, B, C, D, E, F, G>(
   a: A,
@@ -29,7 +29,7 @@ export function pipe<A, B, C, D, E, F, G>(
   cd: (c: C) => D,
   de: (d: D) => E,
   ef: (e: E) => F,
-  fg: (f: F) => G
+  fg: (f: F) => G,
 ): G;
 export function pipe<A, B, C, D, E, F, G, H>(
   a: A,
@@ -39,7 +39,7 @@ export function pipe<A, B, C, D, E, F, G, H>(
   de: (d: D) => E,
   ef: (e: E) => F,
   fg: (f: F) => G,
-  gh: (g: G) => H
+  gh: (g: G) => H,
 ): H;
 export function pipe<A, B, C, D, E, F, G, H, I>(
   a: A,
@@ -50,7 +50,7 @@ export function pipe<A, B, C, D, E, F, G, H, I>(
   ef: (e: E) => F,
   fg: (f: F) => G,
   gh: (g: G) => H,
-  hi: (h: H) => I
+  hi: (h: H) => I,
 ): I;
 export function pipe<A, B, C, D, E, F, G, H, I, J>(
   a: A,
@@ -62,7 +62,7 @@ export function pipe<A, B, C, D, E, F, G, H, I, J>(
   fg: (f: F) => G,
   gh: (g: G) => H,
   hi: (h: H) => I,
-  ij: (i: I) => J
+  ij: (i: I) => J,
 ): J;
 
 export function pipe(

@@ -1,7 +1,7 @@
-import { TABLEAU, FOUNDATION, WASTE } from '../internal/constants.ts';
-import { Card } from '../types/card.ts';
-import { GameState } from '../types/game.ts';
-import { AllCardLocations } from '../types/move.ts';
+import { FOUNDATION, TABLEAU, WASTE } from "../internal/constants.ts";
+import { Card } from "../types/card.ts";
+import { GameState } from "../types/game.ts";
+import { AllCardLocations } from "../types/move.ts";
 
 export function setPile({
   game,
@@ -16,13 +16,19 @@ export function setPile({
     case TABLEAU:
       return {
         ...game,
-        tableau: game.tableau.map((col, i) => (i === pileLocation.index ? updatedPile : col)),
+        tableau: game.tableau.map((
+          col,
+          i,
+        ) => (i === pileLocation.index ? updatedPile : col)),
       };
 
     case FOUNDATION:
       return {
         ...game,
-        foundation: game.foundation.map((col, i) => (i === pileLocation.index ? updatedPile : col)),
+        foundation: game.foundation.map((
+          col,
+          i,
+        ) => (i === pileLocation.index ? updatedPile : col)),
       };
 
     case WASTE:

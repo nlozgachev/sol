@@ -1,7 +1,7 @@
-import { getPile } from '../../cmd/getPile.ts';
-import { MoveData } from '../../types/card.ts';
-import { CommandMoveInjectedIndex } from '../../types/command.ts';
-import { GameState } from '../../types/game.ts';
+import { getPile } from "../../cmd/getPile.ts";
+import { MoveData } from "../../types/card.ts";
+import { CommandMoveInjectedIndex } from "../../types/command.ts";
+import { GameState } from "../../types/game.ts";
 
 export function extractMoveData(game: GameState) {
   return (move: CommandMoveInjectedIndex): MoveData => {

@@ -1,5 +1,5 @@
-import { Card } from '../../../types/card.ts';
-import { isOppositeColor, rankToIndex } from '../../util/cardCheckUtils.ts';
+import { Card } from "../../../types/card.ts";
+import { isOppositeColor, rankToIndex } from "../../util/cardCheckUtils.ts";
 
 export function isValidTableauSequence(cards: Card[]): boolean {
   const faceUpCards = cards.filter((c) => c.faceUp);
@@ -8,6 +8,7 @@ export function isValidTableauSequence(cards: Card[]): boolean {
   return faceUpCards.every((card, i) => {
     if (i === lastIndex) return true; // nothing to compare with
     const next = faceUpCards[i + 1];
-    return isOppositeColor(card.suit, next.suit) && rankToIndex(card.rank) === rankToIndex(next.rank) + 1;
+    return isOppositeColor(card.suit, next.suit) &&
+      rankToIndex(card.rank) === rankToIndex(next.rank) + 1;
   });
 }

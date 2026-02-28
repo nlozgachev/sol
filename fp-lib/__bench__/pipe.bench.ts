@@ -1,6 +1,6 @@
-import { assert } from '@std/assert';
-import { pipe } from '../pipe.ts';
+import { assert } from "@std/assert";
+import { pipe } from "../pipe.ts";
 
-Deno.bench('pipe', () => {
-  assert(pipe('value', (v) => v));
+Deno.bench("pipe", () => {
+  assert(pipe("value", (v) => v));
 });

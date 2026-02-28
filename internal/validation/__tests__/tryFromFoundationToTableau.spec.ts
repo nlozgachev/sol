@@ -1,9 +1,9 @@
-import { assert } from '@std/assert';
-import { MoveData } from '../../../types/card.ts';
-import { TABLEAU, FOUNDATION } from '../../constants.ts';
-import { tryFromFoundationToTableau } from '../tryFromFoundationToTableau.ts';
+import { assert } from "@std/assert";
+import { MoveData } from "../../../types/card.ts";
+import { FOUNDATION, TABLEAU } from "../../constants.ts";
+import { tryFromFoundationToTableau } from "../tryFromFoundationToTableau.ts";
 
-Deno.test('tryFromFoundationToTableau | valid move', () => {
+Deno.test("tryFromFoundationToTableau | valid move", () => {
   const ctx: MoveData = {
     from: {
       index: 0,
@@ -13,12 +13,12 @@ Deno.test('tryFromFoundationToTableau | valid move', () => {
       index: 0,
       pile: TABLEAU,
     },
-    targetBefore: [{ faceUp: true, rank: '3', suit: '♥' }],
+    targetBefore: [{ faceUp: true, rank: "3", suit: "♥" }],
     targetAfter: [
-      { faceUp: true, rank: '3', suit: '♥' },
-      { faceUp: true, rank: '2', suit: '♠' },
+      { faceUp: true, rank: "3", suit: "♥" },
+      { faceUp: true, rank: "2", suit: "♠" },
     ],
-    movingCards: [{ faceUp: true, rank: '2', suit: '♠' }],
+    movingCards: [{ faceUp: true, rank: "2", suit: "♠" }],
   };
 
   const res = tryFromFoundationToTableau(ctx);
@@ -26,7 +26,7 @@ Deno.test('tryFromFoundationToTableau | valid move', () => {
   assert(res.ok);
 });
 
-Deno.test('tryFromFoundationToTableau | invalid move by rank', () => {
+Deno.test("tryFromFoundationToTableau | invalid move by rank", () => {
   const ctx: MoveData = {
     from: {
       index: 0,
@@ -36,12 +36,12 @@ Deno.test('tryFromFoundationToTableau | invalid move by rank', () => {
       index: 0,
       pile: TABLEAU,
     },
-    targetBefore: [{ faceUp: true, rank: '3', suit: '♥' }],
+    targetBefore: [{ faceUp: true, rank: "3", suit: "♥" }],
     targetAfter: [
-      { faceUp: true, rank: '3', suit: '♥' },
-      { faceUp: true, rank: '4', suit: '♠' },
+      { faceUp: true, rank: "3", suit: "♥" },
+      { faceUp: true, rank: "4", suit: "♠" },
     ],
-    movingCards: [{ faceUp: true, rank: '4', suit: '♠' }],
+    movingCards: [{ faceUp: true, rank: "4", suit: "♠" }],
   };
 
   const res = tryFromFoundationToTableau(ctx);
@@ -49,7 +49,7 @@ Deno.test('tryFromFoundationToTableau | invalid move by rank', () => {
   assert(!res.ok);
 });
 
-Deno.test('tryFromFoundationToTableau | invalid move by suit', () => {
+Deno.test("tryFromFoundationToTableau | invalid move by suit", () => {
   const ctx: MoveData = {
     from: {
       index: 0,
@@ -59,12 +59,12 @@ Deno.test('tryFromFoundationToTableau | invalid move by suit', () => {
       index: 0,
       pile: TABLEAU,
     },
-    targetBefore: [{ faceUp: true, rank: '3', suit: '♥' }],
+    targetBefore: [{ faceUp: true, rank: "3", suit: "♥" }],
     targetAfter: [
-      { faceUp: true, rank: '3', suit: '♥' },
-      { faceUp: true, rank: '2', suit: '♥' },
+      { faceUp: true, rank: "3", suit: "♥" },
+      { faceUp: true, rank: "2", suit: "♥" },
     ],
-    movingCards: [{ faceUp: true, rank: '2', suit: '♥' }],
+    movingCards: [{ faceUp: true, rank: "2", suit: "♥" }],
   };
 
   const res = tryFromFoundationToTableau(ctx);
@@ -72,7 +72,7 @@ Deno.test('tryFromFoundationToTableau | invalid move by suit', () => {
   assert(!res.ok);
 });
 
-Deno.test('tryFromFoundationToTableau | disallow moving several cards', () => {
+Deno.test("tryFromFoundationToTableau | disallow moving several cards", () => {
   const ctx: MoveData = {
     from: {
       index: 0,
@@ -82,15 +82,15 @@ Deno.test('tryFromFoundationToTableau | disallow moving several cards', () => {
       index: 0,
       pile: TABLEAU,
     },
-    targetBefore: [{ faceUp: true, rank: '4', suit: '♥' }],
+    targetBefore: [{ faceUp: true, rank: "4", suit: "♥" }],
     targetAfter: [
-      { faceUp: true, rank: '4', suit: '♥' },
-      { faceUp: true, rank: '3', suit: '♠' },
-      { faceUp: true, rank: '2', suit: '♥' },
+      { faceUp: true, rank: "4", suit: "♥" },
+      { faceUp: true, rank: "3", suit: "♠" },
+      { faceUp: true, rank: "2", suit: "♥" },
     ],
     movingCards: [
-      { faceUp: true, rank: '3', suit: '♠' },
-      { faceUp: true, rank: '2', suit: '♥' },
+      { faceUp: true, rank: "3", suit: "♠" },
+      { faceUp: true, rank: "2", suit: "♥" },
     ],
   };
 

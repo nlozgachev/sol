@@ -1,4 +1,4 @@
-import { Err, Ok } from './types.ts';
+import { Err, Ok } from "./types.ts";
 
 export function ok<T>(value: T): Ok<T> {
   return { ok: true, value };

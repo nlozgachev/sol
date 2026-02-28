@@ -1,8 +1,8 @@
-import { pipe } from '../fp-lib/pipe.ts';
-import { Card, ApplyMoveCtx } from '../types/card.ts';
-import { GameState } from '../types/game.ts';
-import { getPile } from './getPile.ts';
-import { setPile } from './setPile.ts';
+import { pipe } from "../fp-lib/pipe.ts";
+import { ApplyMoveCtx, Card } from "../types/card.ts";
+import { GameState } from "../types/game.ts";
+import { getPile } from "./getPile.ts";
+import { setPile } from "./setPile.ts";
 
 export function applyMove({ game, move }: ApplyMoveCtx): GameState {
   const { movingCards, from, to, targetAfter } = move;
@@ -10,13 +10,13 @@ export function applyMove({ game, move }: ApplyMoveCtx): GameState {
   const updatedSourcePile = pipe(
     getPile({ game, pileLocation: from }),
     (fromPile) => removeCards(fromPile, movingCards.length),
-    maybeAutoFlip
+    maybeAutoFlip,
   );
 
   return pipe(
     game,
     (g) => setPile({ game: g, pileLocation: from, updatedPile: updatedSourcePile }),
-    (g) => setPile({ game: g, pileLocation: to, updatedPile: targetAfter })
+    (g) => setPile({ game: g, pileLocation: to, updatedPile: targetAfter }),
   );
 }
 

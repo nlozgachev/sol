@@ -1,17 +1,17 @@
-import { recover } from '../../fp-lib/recover.ts';
-import { pipe } from '../../fp-lib/pipe.ts';
-import { Operation } from '../../fp-lib/types.ts';
-import { err, ok } from '../../fp-lib/util.ts';
+import { recover } from "../../fp-lib/recover.ts";
+import { pipe } from "../../fp-lib/pipe.ts";
+import { Operation } from "../../fp-lib/types.ts";
+import { err, ok } from "../../fp-lib/util.ts";
 import {
-  CardSource,
   CardDestination,
-  WasteLocation,
-  FoundationLocationUnknownIndex,
+  CardSource,
   FoundationLocation,
+  FoundationLocationUnknownIndex,
   TableauLocation,
-} from '../../types/move.ts';
-import { FOUNDATION, TABLEAU, WASTE } from '../constants.ts';
-import { PARSING_ERROR } from '../errors.ts';
+  WasteLocation,
+} from "../../types/move.ts";
+import { FOUNDATION, TABLEAU, WASTE } from "../constants.ts";
+import { PARSING_ERROR } from "../errors.ts";
 
 const MATCH_MAPPING = {
   WASTE: /^w$/,
@@ -25,24 +25,30 @@ export function matchCardSourceString(raw: string): Operation<CardSource> {
     raw,
     matchWaste,
     recover(() => matchFromFoundation(raw)),
-    recover(() => matchTableau(raw))
+    recover(() => matchTableau(raw)),
   );
 }
 
-export function matchCardDestinationString(raw: string): Operation<CardDestination> {
+export function matchCardDestinationString(
+  raw: string,
+): Operation<CardDestination> {
   return pipe(
     raw,
     matchTableau,
-    recover(() => matchToFoundation(raw))
+    recover(() => matchToFoundation(raw)),
   );
 }
 
 function matchWaste(raw: string): Operation<WasteLocation> {
-  return MATCH_MAPPING.WASTE.test(raw) ? ok({ pile: WASTE, index: 'none' }) : err(PARSING_ERROR);
+  return MATCH_MAPPING.WASTE.test(raw) ? ok({ pile: WASTE, index: "none" }) : err(PARSING_ERROR);
 }
 
-function matchToFoundation(raw: string): Operation<FoundationLocationUnknownIndex> {
-  return MATCH_MAPPING.FOUNDATION.test(raw) ? ok({ pile: FOUNDATION, index: 'auto' }) : err(PARSING_ERROR);
+function matchToFoundation(
+  raw: string,
+): Operation<FoundationLocationUnknownIndex> {
+  return MATCH_MAPPING.FOUNDATION.test(raw)
+    ? ok({ pile: FOUNDATION, index: "auto" })
+    : err(PARSING_ERROR);
 }
 
 function matchFromFoundation(raw: string): Operation<FoundationLocation> {

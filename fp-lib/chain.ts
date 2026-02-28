@@ -1,4 +1,4 @@
-import { Either } from './types.ts';
+import { Either } from "./types.ts";
 
 /**
  * Applies a function to the value of an `Either` if it is a success.

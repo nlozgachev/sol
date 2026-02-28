@@ -1,8 +1,10 @@
-import { Operation } from '../../fp-lib/types.ts';
-import { err, ok } from '../../fp-lib/util.ts';
-import { INVALID_COMMAND } from '../errors.ts';
+import { Operation } from "../../fp-lib/types.ts";
+import { err, ok } from "../../fp-lib/util.ts";
+import { INVALID_COMMAND } from "../errors.ts";
 
-export function extractMoveDataFromString(rawString: string): Operation<{ count: number; from: string; to: string }> {
+export function extractMoveDataFromString(
+  rawString: string,
+): Operation<{ count: number; from: string; to: string }> {
   /**
    * Three groups:
    * 1. Optional count (0-9)

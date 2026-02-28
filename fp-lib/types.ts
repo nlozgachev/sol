@@ -1,10 +1,10 @@
 import {
-  PARSING_ERROR,
+  COMMAND_NOT_FOUND,
   INVALID_COMMAND,
   INVALID_MOVE,
+  PARSING_ERROR,
   WRONG_VALIDATOR,
-  COMMAND_NOT_FOUND,
-} from '../internal/errors.ts';
+} from "../internal/errors.ts";
 
 export type Ok<T> = { ok: true; value: T };
 export type Err<T> = { ok: false; err: T };
