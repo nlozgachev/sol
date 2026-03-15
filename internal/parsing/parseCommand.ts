@@ -1,12 +1,11 @@
 import { Result } from "@nlozgachev/pipelined/core";
 import { pipe } from "@nlozgachev/pipelined/composition";
-import { tryChain } from "../../fp-lib/tryChain.ts";
 import type { Operation } from "../../fp-lib/types.ts";
 import { CommandMove, CommandMoveRaw, CommandParsed } from "../../types/command.ts";
 import { GameState } from "../../types/game.ts";
 import { ValidMove } from "../../types/move.ts";
 import { DRAW_CMD, MOVE_CMD, QUIT_CMD, UNDO_CMD } from "../constants.ts";
-import { COMMAND_NOT_FOUND, INVALID_COMMAND, PARSING_ERROR } from "../errors.ts";
+import { COMMAND_NOT_FOUND, INVALID_COMMAND, PARSING_ERROR, WRONG_VALIDATOR } from "../errors.ts";
 import { validateMoveIndex } from "../validation/validateFoundationMoveIndex.ts";
 import { validateMoveRules } from "../validation/validateMoveRules.ts";
 import { extractMoveDataFromString } from "./extractMoveDataFromString.ts";
@@ -19,10 +18,10 @@ export function parseCommand(ctx: ParseCommandCtx): Operation<CommandParsed> {
 }
 
 function findCommand({ raw, game }: ParseCommandCtx): Operation<CommandParsed> {
-  return tryChain(
-    () => tryColonCmd(raw),
-    () => tryDrawCmd(raw),
-    () => tryMoveCmd({ raw, game }),
+  return pipe(
+    tryColonCmd(raw),
+    Result.recoverUnless(WRONG_VALIDATOR, () => tryDrawCmd(raw)),
+    Result.recoverUnless(WRONG_VALIDATOR, () => tryMoveCmd({ raw, game })),
   );
 }
 
