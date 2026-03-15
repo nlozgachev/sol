@@ -1,4 +1,5 @@
 import { assert } from "@std/assert";
+import { Result } from "@nlozgachev/pipelined/core";
 import { tryFromWasteToFoundation } from "../tryFromWasteToFoundation.ts";
 import { tryFromWasteToTableau } from "../tryFromWasteToTableau.ts";
 import { MoveData } from "../../../types/card.ts";
@@ -24,7 +25,7 @@ Deno.test("tryFromWasteToTableau | valid move", () => {
 
   const res = tryFromWasteToTableau(ctx);
 
-  assert(res.ok);
+  assert(Result.isOk(res));
 });
 
 Deno.test("tryFromWasteToTableau | invalid move by rank", () => {
@@ -47,7 +48,7 @@ Deno.test("tryFromWasteToTableau | invalid move by rank", () => {
 
   const res = tryFromWasteToTableau(ctx);
 
-  assert(!res.ok);
+  assert(Result.isErr(res));
 });
 
 Deno.test("tryFromWasteToTableau | invalid move by suit", () => {
@@ -70,7 +71,7 @@ Deno.test("tryFromWasteToTableau | invalid move by suit", () => {
 
   const res = tryFromWasteToTableau(ctx);
 
-  assert(!res.ok);
+  assert(Result.isErr(res));
 });
 
 Deno.test("tryFromWasteToTableau | disallow moving several cards at once", () => {
@@ -97,5 +98,5 @@ Deno.test("tryFromWasteToTableau | disallow moving several cards at once", () =>
 
   const res = tryFromWasteToFoundation(ctx);
 
-  assert(!res.ok);
+  assert(Result.isErr(res));
 });

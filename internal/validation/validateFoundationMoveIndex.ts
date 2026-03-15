@@ -1,5 +1,5 @@
-import { Operation } from "../../fp-lib/types.ts";
-import { err, ok } from "../../fp-lib/util.ts";
+import { Result } from "@nlozgachev/pipelined/core";
+import type { Operation } from "../../fp-lib/types.ts";
 import { CommandMoveInjectedIndex, CommandMoveRaw } from "../../types/command.ts";
 import { GameState } from "../../types/game.ts";
 import { ValidMove } from "../../types/move.ts";
@@ -14,11 +14,11 @@ export function validateMoveIndex(game: GameState) {
     const resultTo: Operation<ValidMove["to"]> = (() => {
       switch (to.pile) {
         case TABLEAU: {
-          return ok(to);
+          return Result.ok(to);
         }
         case FOUNDATION: {
-          if (from.pile === FOUNDATION) return err(INVALID_MOVE);
-          return ok({
+          if (from.pile === FOUNDATION) return Result.err(INVALID_MOVE);
+          return Result.ok({
             ...to,
             index: assignFoundationSlot(from, game),
           });
@@ -26,9 +26,9 @@ export function validateMoveIndex(game: GameState) {
       }
     })();
 
-    if (!resultTo.ok) return err(INVALID_MOVE);
+    if (Result.isErr(resultTo)) return Result.err(INVALID_MOVE);
 
-    return ok({
+    return Result.ok({
       action: MOVE_CMD,
       count,
       from,

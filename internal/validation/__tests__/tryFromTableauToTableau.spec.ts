@@ -1,4 +1,5 @@
 import { assert } from "@std/assert";
+import { Result } from "@nlozgachev/pipelined/core";
 import { MoveData } from "../../../types/card.ts";
 import { TABLEAU } from "../../constants.ts";
 import { INVALID_MOVE } from "../../errors.ts";
@@ -30,7 +31,7 @@ Deno.test("tryFromTableauToTableau | valid regular move", () => {
 
   const res = tryFromTableauToTableau(ctx);
 
-  assert(res.ok);
+  assert(Result.isOk(res));
 });
 
 Deno.test("tryFromTableauToTableau | invalid regular move", () => {
@@ -54,8 +55,8 @@ Deno.test("tryFromTableauToTableau | invalid regular move", () => {
 
   const res = tryFromTableauToTableau(ctx);
 
-  assert(!res.ok);
-  assert(res.err === INVALID_MOVE);
+  assert(Result.isErr(res));
+  assert(res.error === INVALID_MOVE);
 });
 
 Deno.test("tryFromTableauToTableau | valid column starting move", () => {
@@ -83,7 +84,7 @@ Deno.test("tryFromTableauToTableau | valid column starting move", () => {
 
   const res = tryFromTableauToTableau(ctx);
 
-  assert(res.ok);
+  assert(Result.isOk(res));
 });
 
 Deno.test("tryFromTableauToTableau | invalid column starting move", () => {
@@ -109,5 +110,5 @@ Deno.test("tryFromTableauToTableau | invalid column starting move", () => {
 
   const res = tryFromTableauToTableau(ctx);
 
-  assert(!res.ok);
+  assert(Result.isErr(res));
 });

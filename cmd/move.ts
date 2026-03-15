@@ -1,4 +1,4 @@
-import { pipe } from "../fp-lib/pipe.ts";
+import { pipe } from "@nlozgachev/pipelined/composition";
 import { ApplyMoveCtx, Card } from "../types/card.ts";
 import { GameState } from "../types/game.ts";
 import { getPile } from "./getPile.ts";

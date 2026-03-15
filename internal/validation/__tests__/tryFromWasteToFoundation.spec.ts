@@ -1,4 +1,5 @@
 import { assert } from "@std/assert";
+import { Result } from "@nlozgachev/pipelined/core";
 import { MoveData } from "../../../types/card.ts";
 import { FOUNDATION, WASTE } from "../../constants.ts";
 import { tryFromWasteToFoundation } from "../tryFromWasteToFoundation.ts";
@@ -23,7 +24,7 @@ Deno.test("tryFromWasteToFoundation | valid move", () => {
 
   const res = tryFromWasteToFoundation(ctx);
 
-  assert(res.ok);
+  assert(Result.isOk(res));
 });
 
 Deno.test("tryFromWasteToFoundation | invalid move", () => {
@@ -46,7 +47,7 @@ Deno.test("tryFromWasteToFoundation | invalid move", () => {
 
   const res = tryFromWasteToFoundation(ctx);
 
-  assert(!res.ok);
+  assert(Result.isErr(res));
 });
 
 Deno.test("tryFromWasteToFoundation | valid foundation start", () => {
@@ -69,7 +70,7 @@ Deno.test("tryFromWasteToFoundation | valid foundation start", () => {
 
   const res = tryFromWasteToFoundation(ctx);
 
-  assert(res.ok);
+  assert(Result.isOk(res));
 });
 
 Deno.test("tryFromWasteToFoundation | valid foundation move", () => {
@@ -89,7 +90,7 @@ Deno.test("tryFromWasteToFoundation | valid foundation move", () => {
 
   const res = tryFromWasteToFoundation(ctx);
 
-  assert(res.ok);
+  assert(Result.isOk(res));
 });
 
 Deno.test("tryFromWasteToFoundation | invalid foundation start", () => {
@@ -109,7 +110,7 @@ Deno.test("tryFromWasteToFoundation | invalid foundation start", () => {
 
   const res = tryFromWasteToFoundation(ctx);
 
-  assert(!res.ok);
+  assert(Result.isErr(res));
 });
 
 Deno.test("tryFromWasteToFoundation | disallow moving several cards at once", () => {
@@ -136,5 +137,5 @@ Deno.test("tryFromWasteToFoundation | disallow moving several cards at once", ()
 
   const res = tryFromWasteToFoundation(ctx);
 
-  assert(!res.ok);
+  assert(Result.isErr(res));
 });

@@ -1,4 +1,5 @@
 import { assert, assertEquals } from "@std/assert";
+import { Result } from "@nlozgachev/pipelined/core";
 import { COUNTER_FIXTURE, FOUNDATIONS_FIXTURE, TABLEAUS_FIXTURE } from "../../fixtures/index.ts";
 import { extractMoveDataFromString } from "../parsing/extractMoveDataFromString.ts";
 
@@ -9,7 +10,7 @@ Deno.test("util | extractMoveDataFromString | full string", () => {
         const command = `${c}${t}${f}`;
 
         const result = extractMoveDataFromString(command);
-        assert(result.ok);
+        assert(Result.isOk(result));
 
         const { from, to, count } = result.value;
         assertEquals(from, t);
@@ -27,7 +28,7 @@ Deno.test("util | extractMoveDataFromString | only locations string", () => {
 
       const result = extractMoveDataFromString(command);
 
-      assert(result.ok);
+      assert(Result.isOk(result));
 
       const { from, to, count } = result.value;
       assertEquals(from, sourceExample);
@@ -44,7 +45,7 @@ Deno.test("util | extractMoveDataFromString | from foundation to tableau", () =>
 
       const result = extractMoveDataFromString(command);
 
-      assert(result.ok);
+      assert(Result.isOk(result));
 
       const { from, to, count } = result.value;
       assertEquals(from, sourceExample);
@@ -61,7 +62,7 @@ Deno.test("util | extractMoveDataFromString | from tableau to foundation", () =>
 
       const result = extractMoveDataFromString(command);
 
-      assert(result.ok);
+      assert(Result.isOk(result));
       const { from, to, count } = result.value;
 
       assertEquals(from, sourceExample);
@@ -77,7 +78,7 @@ Deno.test("util | extractMoveDataFromString | from waste to foundation", () => {
 
     const result = extractMoveDataFromString(command);
 
-    assert(result.ok);
+    assert(Result.isOk(result));
 
     const { from, to, count } = result.value;
 
@@ -93,7 +94,7 @@ Deno.test("util | extractMoveDataFromString | from waste to tableau", () => {
 
     const result = extractMoveDataFromString(command);
 
-    assert(result.ok);
+    assert(Result.isOk(result));
 
     const { from, to, count } = result.value;
     assertEquals(from, "w");
@@ -106,7 +107,7 @@ Deno.test("util | extractCommandDataFromString | errored | single digit", () => 
   const command = "1";
 
   const result = extractMoveDataFromString(command);
-  assert(!result.ok);
+  assert(Result.isErr(result));
 });
 
 Deno.test("util | extractCommandDataFromString | errored | only source", () => {
@@ -114,5 +115,5 @@ Deno.test("util | extractCommandDataFromString | errored | only source", () => {
 
   const result = extractMoveDataFromString(command);
 
-  assert(!result.ok);
+  assert(Result.isErr(result));
 });

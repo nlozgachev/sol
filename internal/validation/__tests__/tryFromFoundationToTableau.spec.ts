@@ -1,4 +1,5 @@
 import { assert } from "@std/assert";
+import { Result } from "@nlozgachev/pipelined/core";
 import { MoveData } from "../../../types/card.ts";
 import { FOUNDATION, TABLEAU } from "../../constants.ts";
 import { tryFromFoundationToTableau } from "../tryFromFoundationToTableau.ts";
@@ -23,7 +24,7 @@ Deno.test("tryFromFoundationToTableau | valid move", () => {
 
   const res = tryFromFoundationToTableau(ctx);
 
-  assert(res.ok);
+  assert(Result.isOk(res));
 });
 
 Deno.test("tryFromFoundationToTableau | invalid move by rank", () => {
@@ -46,7 +47,7 @@ Deno.test("tryFromFoundationToTableau | invalid move by rank", () => {
 
   const res = tryFromFoundationToTableau(ctx);
 
-  assert(!res.ok);
+  assert(Result.isErr(res));
 });
 
 Deno.test("tryFromFoundationToTableau | invalid move by suit", () => {
@@ -69,7 +70,7 @@ Deno.test("tryFromFoundationToTableau | invalid move by suit", () => {
 
   const res = tryFromFoundationToTableau(ctx);
 
-  assert(!res.ok);
+  assert(Result.isErr(res));
 });
 
 Deno.test("tryFromFoundationToTableau | disallow moving several cards", () => {
@@ -96,5 +97,5 @@ Deno.test("tryFromFoundationToTableau | disallow moving several cards", () => {
 
   const res = tryFromFoundationToTableau(ctx);
 
-  assert(!res.ok);
+  assert(Result.isErr(res));
 });

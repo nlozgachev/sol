@@ -1,5 +1,5 @@
-import { Operation } from "../../fp-lib/types.ts";
-import { err, ok } from "../../fp-lib/util.ts";
+import { Result } from "@nlozgachev/pipelined/core";
+import type { Operation } from "../../fp-lib/types.ts";
 import { MoveData } from "../../types/card.ts";
 import { FromFoundationToTableau } from "../../types/move.ts";
 import { FOUNDATION, TABLEAU } from "../constants.ts";
@@ -10,12 +10,12 @@ export function tryFromFoundationToTableau(
   ctx: MoveData,
 ): Operation<FromFoundationToTableau> {
   if (ctx.from.pile !== FOUNDATION || ctx.to.pile !== TABLEAU) {
-    return err(WRONG_VALIDATOR);
+    return Result.err(WRONG_VALIDATOR);
   }
-  if (ctx.movingCards.length !== 1) return err(INVALID_MOVE);
-  if (isValidTableauAfterMove(ctx) === false) return err(INVALID_MOVE);
+  if (ctx.movingCards.length !== 1) return Result.err(INVALID_MOVE);
+  if (isValidTableauAfterMove(ctx) === false) return Result.err(INVALID_MOVE);
 
-  return ok({
+  return Result.ok({
     movingCards: ctx.movingCards,
     targetBefore: ctx.targetBefore,
     targetAfter: ctx.targetAfter,

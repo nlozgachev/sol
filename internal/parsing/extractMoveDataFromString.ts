@@ -1,5 +1,5 @@
-import { Operation } from "../../fp-lib/types.ts";
-import { err, ok } from "../../fp-lib/util.ts";
+import { Result } from "@nlozgachev/pipelined/core";
+import type { Operation } from "../../fp-lib/types.ts";
 import { INVALID_COMMAND } from "../errors.ts";
 
 export function extractMoveDataFromString(
@@ -13,14 +13,14 @@ export function extractMoveDataFromString(
    */
   const stringMatchArray = rawString.match(/^(\d{0,})([wtf]\d?)([wtf]\d?)$/);
   if (stringMatchArray === null) {
-    return err(INVALID_COMMAND);
+    return Result.err(INVALID_COMMAND);
   }
 
   const [_, countMatch, sourceMatch, destinationMatch] = stringMatchArray;
 
   const count = countMatch.length ? parseInt(countMatch) : 1;
 
-  return ok({
+  return Result.ok({
     count,
     from: sourceMatch,
     to: destinationMatch,

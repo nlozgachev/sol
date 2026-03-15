@@ -1,5 +1,5 @@
-import { Operation } from "../../fp-lib/types.ts";
-import { err, ok } from "../../fp-lib/util.ts";
+import { Result } from "@nlozgachev/pipelined/core";
+import type { Operation } from "../../fp-lib/types.ts";
 import { Card } from "../../types/card.ts";
 import { GameState } from "../../types/game.ts";
 import { rankToIndex } from "./cardCheckUtils.ts";
@@ -48,12 +48,12 @@ export function assignFoundationSlot_refactored({
         rankToIndex(card.rank) === rankToIndex(pile.at(-1)!.rank) + 1),
   );
 
-  if (index === -1) return err(INVALID_MOVE);
+  if (index === -1) return Result.err(INVALID_MOVE);
 
   const updated = foundations.map((
     pile,
     i,
   ) => (i === index ? [...pile, card] : pile));
 
-  return ok(updated);
+  return Result.ok(updated);
 }

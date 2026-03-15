@@ -1,8 +1,7 @@
-import { chain } from "../../fp-lib/chain.ts";
-import { pipe } from "../../fp-lib/pipe.ts";
+import { Result } from "@nlozgachev/pipelined/core";
+import { pipe } from "@nlozgachev/pipelined/composition";
 import { tryChain } from "../../fp-lib/tryChain.ts";
-import { Operation } from "../../fp-lib/types.ts";
-import { err, ok } from "../../fp-lib/util.ts";
+import type { Operation } from "../../fp-lib/types.ts";
 import { CommandMove, CommandMoveRaw, CommandParsed } from "../../types/command.ts";
 import { GameState } from "../../types/game.ts";
 import { ValidMove } from "../../types/move.ts";
@@ -16,7 +15,7 @@ import { matchCardDestinationString, matchCardSourceString } from "./matchCardSt
 type ParseCommandCtx = { raw: string; game: GameState };
 
 export function parseCommand(ctx: ParseCommandCtx): Operation<CommandParsed> {
-  return pipe(ctx, checkNonEmpty, chain(findCommand));
+  return pipe(ctx, checkNonEmpty, Result.chain(findCommand));
 }
 
 function findCommand({ raw, game }: ParseCommandCtx): Operation<CommandParsed> {
@@ -28,22 +27,22 @@ function findCommand({ raw, game }: ParseCommandCtx): Operation<CommandParsed> {
 }
 
 function checkNonEmpty(ctx: ParseCommandCtx): Operation<ParseCommandCtx> {
-  return ctx.raw.length > 0 ? ok(ctx) : err(INVALID_COMMAND);
+  return ctx.raw.length > 0 ? Result.ok(ctx) : Result.err(INVALID_COMMAND);
 }
 
 function tryColonCmd(str: string): Operation<CommandParsed> {
-  if (str === ":q") return ok({ action: QUIT_CMD });
-  if (str === ":u") return ok({ action: UNDO_CMD });
-  return err(COMMAND_NOT_FOUND);
+  if (str === ":q") return Result.ok({ action: QUIT_CMD });
+  if (str === ":u") return Result.ok({ action: UNDO_CMD });
+  return Result.err(COMMAND_NOT_FOUND);
 }
 
 function tryDrawCmd(rawString: string): Operation<CommandParsed> {
   const stringMatchArray = rawString.match(/^(\d{0,})(d)$/);
 
-  if (stringMatchArray === null) return err(COMMAND_NOT_FOUND);
+  if (stringMatchArray === null) return Result.err(COMMAND_NOT_FOUND);
 
   const [_, countMatch] = stringMatchArray;
-  return ok({
+  return Result.ok({
     action: DRAW_CMD,
     count: countMatch.length ? parseInt(countMatch) : 1,
   });
@@ -52,16 +51,16 @@ function tryDrawCmd(rawString: string): Operation<CommandParsed> {
 function createCommandMoveRaw(raw: string): Operation<CommandMoveRaw> {
   const moveData = extractMoveDataFromString(raw);
 
-  if (!moveData.ok) return err(moveData.err);
+  if (Result.isErr(moveData)) return Result.err(moveData.error);
 
   const { count, from, to } = moveData.value;
 
   const parsedFrom = matchCardSourceString(from);
   const parsedTo = matchCardDestinationString(to);
 
-  if (!parsedFrom.ok || !parsedTo.ok) return err(PARSING_ERROR);
+  if (Result.isErr(parsedFrom) || Result.isErr(parsedTo)) return Result.err(PARSING_ERROR);
 
-  return ok({
+  return Result.ok({
     action: MOVE_CMD,
     count,
     from: parsedFrom.value,
@@ -72,14 +71,14 @@ function createCommandMoveRaw(raw: string): Operation<CommandMoveRaw> {
 function tryMoveCmd({ raw, game }: ParseCommandCtx): Operation<CommandMove> {
   return pipe(
     createCommandMoveRaw(raw),
-    chain(validateMoveIndex(game)),
-    chain(validateMoveRules(game)),
-    chain(convertToCommandMove),
+    Result.chain(validateMoveIndex(game)),
+    Result.chain(validateMoveRules(game)),
+    Result.chain(convertToCommandMove),
   );
 }
 
 function convertToCommandMove(ctx: ValidMove): Operation<CommandMove> {
-  return ok({
+  return Result.ok({
     ...ctx,
     action: MOVE_CMD,
   });

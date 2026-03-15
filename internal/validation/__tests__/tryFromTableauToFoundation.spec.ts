@@ -1,4 +1,5 @@
 import { assert } from "@std/assert";
+import { Result } from "@nlozgachev/pipelined/core";
 import { MoveData } from "../../../types/card.ts";
 import { FOUNDATION, TABLEAU } from "../../constants.ts";
 import { tryFromTableauToFoundation } from "../tryFromTableauToFoundation.ts";
@@ -20,7 +21,7 @@ Deno.test("tryFromTableauToFoundation | valid starting move", () => {
 
   const res = tryFromTableauToFoundation(ctx);
 
-  assert(res.ok);
+  assert(Result.isOk(res));
 });
 
 Deno.test("tryFromTableauToFoundation | invalid starting move", () => {
@@ -40,7 +41,7 @@ Deno.test("tryFromTableauToFoundation | invalid starting move", () => {
 
   const res = tryFromTableauToFoundation(ctx);
 
-  assert(!res.ok);
+  assert(Result.isErr(res));
 });
 
 Deno.test("tryFromTableauToFoundation | valid additional move", () => {
@@ -63,7 +64,7 @@ Deno.test("tryFromTableauToFoundation | valid additional move", () => {
 
   const res = tryFromTableauToFoundation(ctx);
 
-  assert(res.ok);
+  assert(Result.isOk(res));
 });
 
 Deno.test("tryFromTableauToFoundation | invalid additional move by rank", () => {
@@ -86,7 +87,7 @@ Deno.test("tryFromTableauToFoundation | invalid additional move by rank", () => 
 
   const res = tryFromTableauToFoundation(ctx);
 
-  assert(!res.ok);
+  assert(Result.isErr(res));
 });
 
 Deno.test("tryFromTableauToFoundation | invalid additional move by suit", () => {
@@ -109,7 +110,7 @@ Deno.test("tryFromTableauToFoundation | invalid additional move by suit", () => 
 
   const res = tryFromTableauToFoundation(ctx);
 
-  assert(!res.ok);
+  assert(Result.isErr(res));
 });
 
 Deno.test("tryFromTableauToFoundation | disallow several moving cards", () => {
@@ -135,5 +136,5 @@ Deno.test("tryFromTableauToFoundation | disallow several moving cards", () => {
 
   const res = tryFromTableauToFoundation(ctx);
 
-  assert(!res.ok);
+  assert(Result.isErr(res));
 });

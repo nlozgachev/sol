@@ -1,3 +1,4 @@
+import type { Result } from "@nlozgachev/pipelined/core";
 import {
   COMMAND_NOT_FOUND,
   INVALID_COMMAND,
@@ -6,11 +7,6 @@ import {
   WRONG_VALIDATOR,
 } from "../internal/errors.ts";
 
-export type Ok<T> = { ok: true; value: T };
-export type Err<T> = { ok: false; err: T };
-
-export type Either<E, A> = Ok<A> | Err<E>;
-
 export type OperationError =
   | typeof PARSING_ERROR
   | typeof INVALID_COMMAND
@@ -18,4 +14,4 @@ export type OperationError =
   | typeof WRONG_VALIDATOR
   | typeof COMMAND_NOT_FOUND;
 
-export type Operation<A> = Either<OperationError, A>;
+export type Operation<A> = Result<OperationError, A>;

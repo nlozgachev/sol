@@ -1,3 +1,4 @@
+import { Result } from "@nlozgachev/pipelined/core";
 import { executeCommand } from "./internal/commandExecution/executeCommand.ts";
 import { QUIT_CMD, UNDO_CMD } from "./internal/constants.ts";
 import { INVALID_MOVE } from "./internal/errors.ts";
@@ -63,9 +64,9 @@ while (true) {
       if (inputMode === "colon") {
         if (commandBuffer === ":q" || commandBuffer === ":u") {
           const cmd = parseCommand({ raw: commandBuffer, game });
-          if (!cmd.ok) continue;
+          if (Result.isErr(cmd)) continue;
 
-          if (cmd.ok) {
+          if (Result.isOk(cmd)) {
             const res = executeCommand({
               command: cmd.value,
               game: { state: game, archive: movesArchive },
@@ -89,8 +90,8 @@ while (true) {
       } else {
         // Try parsing command immediately
         const maybeCmd = parseCommand({ raw: commandBuffer, game });
-        if (!maybeCmd.ok) {
-          if (maybeCmd.err === INVALID_MOVE) {
+        if (Result.isErr(maybeCmd)) {
+          if (maybeCmd.error === INVALID_MOVE) {
             message = "❌ Invalid move.";
             commandBuffer = "";
           }

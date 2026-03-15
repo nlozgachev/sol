@@ -17,6 +17,9 @@
     }
   },
   "imports": {
+    "@nlozgachev/pipelined": "npm:@nlozgachev/pipelined@^0.6.5",
+    "@nlozgachev/pipelined/core": "npm:@nlozgachev/pipelined@^0.6.5/core",
+    "@nlozgachev/pipelined/composition": "npm:@nlozgachev/pipelined@^0.6.5/composition",
     "@std/assert": "jsr:@std/assert@^1.0.19"
   }
 }

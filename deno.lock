@@ -2,7 +2,8 @@
   "version": "5",
   "specifiers": {
     "jsr:@std/assert@^1.0.19": "1.0.19",
-    "jsr:@std/internal@^1.0.12": "1.0.12"
+    "jsr:@std/internal@^1.0.12": "1.0.12",
+    "npm:@nlozgachev/pipelined@~0.6.5": "0.6.5"
   },
   "jsr": {
     "@std/assert@1.0.19": {
@@ -13,6 +14,11 @@
     },
     "@std/internal@1.0.12": {
       "integrity": "972a634fd5bc34b242024402972cd5143eac68d8dffaca5eaa4dba30ce17b027"
+    }
+  },
+  "npm": {
+    "@nlozgachev/pipelined@0.6.5": {
+      "integrity": "sha512-QoSj2a5zxjAPz3qu6iQjzkslB78qyX5YGJBXwknqyhklzYc+jEDrrkNgtHNpnZ87PYf+L2Vkck2nn/3DR5q/nQ=="
     }
   },
   "remote": {
@@ -52,7 +58,8 @@
   },
   "workspace": {
     "dependencies": [
-      "jsr:@std/assert@^1.0.19"
+      "jsr:@std/assert@^1.0.19",
+      "npm:@nlozgachev/pipelined@~0.6.5"
     ]
   }
 }
